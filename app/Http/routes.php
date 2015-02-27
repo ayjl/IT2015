@@ -11,11 +11,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', ['uses'=>'WelcomeController@index', 'as'=>'home']);
 
-Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::get('auth/login', ['uses'=>'Auth\AuthController@getLogin', 'as'=>'auth.login']);
+Route::post('auth/login', ['uses'=>'Auth\AuthController@postLogin']);
+Route::get('auth/logout', ['uses'=>'Auth\AuthController@getLogout', 'as'=>'auth.logout']);
