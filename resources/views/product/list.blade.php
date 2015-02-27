@@ -4,8 +4,8 @@
 <div class="container">
     <h1>
         Products
-        @if(Auth::check())
-        <a href="" class="btn btn-primary">New Product</a>
+        @if(strpos(Request::url(), 'admin') !== false)
+        <a href="{{URL::route('admin.product.create')}}" class="btn btn-primary">New Product</a>
         @endif
     </h1>
 

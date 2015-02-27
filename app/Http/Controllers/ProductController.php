@@ -21,7 +21,7 @@ class ProductController extends Controller {
     public function index()
     {
         $products = Product::all();
-        return view('products',
+        return view('product.list',
             [
                 'products' => $products
             ]
