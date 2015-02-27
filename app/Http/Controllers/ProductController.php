@@ -28,4 +28,14 @@ class ProductController extends Controller {
         );
     }
 
+    /**
+     * Show a form to create a product.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('product.create');
+    }
+
 }
