@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', ['uses'=>'WelcomeController@index', 'as'=>'home']);
+Route::get('/', ['uses'=>'ProductController@index', 'as'=>'home']);
 
 Route::get('auth/login', ['uses'=>'Auth\AuthController@getLogin', 'as'=>'auth.login']);
 Route::post('auth/login', ['uses'=>'Auth\AuthController@postLogin']);
