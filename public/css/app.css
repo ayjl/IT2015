@@ -1,6 +1,6 @@
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
-  font-family: sans-serif;
+  font-family: Roboto, sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -6230,4 +6230,9 @@ body,
 label,
 .checkbox label {
   font-weight: 300;
+}
+
+.required:after{
+    color: #c7254e;
+    content: '*';
 }
