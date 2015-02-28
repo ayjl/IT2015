@@ -6,6 +6,7 @@ use \File;
 use \Input;
 use \Redirect;
 use \Request;
+use \Session;
 use \Validator;
 
 class ProductController extends Controller {
@@ -38,6 +39,7 @@ class ProductController extends Controller {
     /**
      * Show the list of products.
      *
+     * @param  int  $id
      * @return Response
      */
     public function show($id)
@@ -59,7 +61,6 @@ class ProductController extends Controller {
     /**
      * Show a form to create a product.
      *
-     * @param  int  $id
      * @return Response
      */
     public function create()
@@ -105,7 +106,8 @@ class ProductController extends Controller {
 
             $product->save();
 
-           return Redirect::route("admin.product.edit", [$product->id]);
+            return Redirect::route('admin.product.edit', $product->id)
+                ->with('data', ['alert'=>'Product saved', 'alertType'=>'success']);
         }
 
         return Redirect::route('admin.product.create')->withInput()->withErrors($validator);
@@ -125,9 +127,12 @@ class ProductController extends Controller {
             return Redirect::route('admin.home');
         }
 
+        $data = Session::get('data', null);
+
         return view('product.form',
             [
-                'product' => $product
+                'product' => $product,
+                'data'    => $data
             ]
         );
     }
@@ -183,7 +188,8 @@ class ProductController extends Controller {
 
             $product->save();
 
-            return Redirect::route('admin.product.edit', $id);
+            return Redirect::route('admin.product.edit', $id)
+                ->with('data', ['alert'=>'Product saved', 'alertType'=>'success']);
         }
 
         return Redirect::route('admin.product.edit', [$id])->withInput()->withErrors($validator);
