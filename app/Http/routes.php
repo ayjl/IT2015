@@ -20,10 +20,10 @@ Route::get('auth/logout', ['uses'=>'Auth\AuthController@getLogout', 'as'=>'auth.
 
 Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function()
 {
-    Route::get('/', function()
+    Route::get('/', ['as'=>'admin.home', function()
     {
         return Redirect::route('admin.product.index');
-    });
+    }]);
 
     Route::resource('product', 'ProductController', ['except'=>'show']);
 });
