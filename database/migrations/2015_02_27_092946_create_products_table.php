@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration {
             $table->text('description');
             $table->decimal('price', 9, 2);
             $table->string('image', 100);
-            $table->char('stock_number', 10);
+            $table->char('stock_number', 10)->unique();
             $table->boolean('available');
             $table->timestamps();
         });
