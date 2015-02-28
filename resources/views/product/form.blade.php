@@ -71,7 +71,7 @@
         </div>
 
         <div class="form-group">
-            <label for="image" class="control-label {{isset($product->id)? '':'required'}}">Image</label>
+            <label for="image" class="control-label {{isset($product->id)? '':'required'}}">{{isset($product->id)? 'Change image' : 'Image'}}</label>
             <input id="image" name="image" type="file" class="form-control" {{isset($product->id)? '':'required'}}>
         </div>
 
