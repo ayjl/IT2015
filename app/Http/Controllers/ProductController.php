@@ -38,7 +38,7 @@ class ProductController extends Controller {
         $product = Product::find($id);
 
         if(!isset($product)){
-            return Redirect::route('admin.home');
+            return Redirect::route('home');
         }
 
         return view('product.show',
