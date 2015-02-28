@@ -1,9 +1,11 @@
 <?php namespace App\Http\Controllers;
 
 use App\Product;
-use \Validator;
+
 use \Input;
 use \Redirect;
+use \Request;
+use \Validator;
 
 class ProductController extends Controller {
 
@@ -51,14 +53,14 @@ class ProductController extends Controller {
      */
     public function store()
     {
-        $rules = array(
+        $rules = [
            'name'           => 'required|string|max:100'
            ,'description'   => 'required|string'
            ,'price'         => 'required|numeric'
            ,'image'         => 'required|image|max:1024'
            ,'stock_number'  => 'required|alpha_num|size:10'
            ,'available'     => 'in:1'
-        );
+        ];
 
         $validator = Validator::make(Input::all(), $rules);
 
@@ -81,7 +83,7 @@ class ProductController extends Controller {
 
            return Redirect::route("admin.product.edit", [$product->id]);
         }
-        
+
         return Redirect::route('admin.product.create')->withInput()->withErrors($validator);
     }
 
@@ -93,11 +95,58 @@ class ProductController extends Controller {
     public function edit($id)
     {
         $product = Product::find($id);
+
         return view('product.form',
             [
                 'product' => $product
             ]
         );
+    }
+
+    /**
+     * Update an existing product.
+     *
+     * @return Response
+     */
+    public function update($id)
+    {
+        $rules = [
+           'name'           => 'required|string|max:100'
+           ,'description'   => 'required|string'
+           ,'price'         => 'required|numeric'
+           ,'image'         => 'image|max:1024'
+           ,'stock_number'  => 'required|alpha_num|size:10'
+           ,'available'     => 'in:1'
+        ];
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if($validator->passes())
+        {
+            $product = Product::find($id);
+
+            if(Input::hasFile('image'))
+            {
+                $image = Input::file('image');
+                $fileLocation = public_path().'/images/';
+                $fileName = uniqid().'.'.$image->getClientOriginalExtension();
+                $image->move($fileLocation, $fileName);
+
+                $product->image = 'images/'.$fileName;
+            }
+
+            $product->name          = Input::get('name');
+            $product->description   = Input::get('description');
+            $product->price         = Input::get('price');
+            $product->stock_number  = Input::get('stock_number');
+            $product->available     = Input::get('available', false);
+
+            $product->save();
+
+            return Redirect::route('admin.product.edit', $id);
+        }
+
+        return Redirect::route('admin.product.edit', [$id])->withInput()->withErrors($validator);
     }
 
 }
