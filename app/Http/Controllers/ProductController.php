@@ -38,7 +38,10 @@ class ProductController extends Controller {
      */
     public function create()
     {
-        return view('product.create');
+        return view('product.create', 
+            [
+                'product' => new Product
+            ]);
     }
 
     /**
@@ -81,4 +84,18 @@ class ProductController extends Controller {
         return Redirect::route('admin.product.create')->withInput()->withErrors($validator);
     }
 
+    /**
+     * Show a form to edit an existing product.
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        return view('product.create',
+            [
+                'product' => $product
+            ]
+        );
+    }
 }
