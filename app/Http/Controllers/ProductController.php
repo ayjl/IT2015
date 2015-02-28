@@ -35,6 +35,27 @@ class ProductController extends Controller {
     }
 
     /**
+     * Show the list of products.
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $product = Product::find($id);
+
+        if(!isset($product)){
+            return Redirect::route('admin.home');
+        }
+
+        return view('product.show',
+            [
+                'product' => $product
+            ]
+        );
+    }
+
+
+    /**
      * Show a form to create a product.
      *
      * @return Response
