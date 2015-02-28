@@ -9,11 +9,15 @@
     @endif
 
     @if(sizeof($errors->all()) != 0)
-       <div class="alert alert-danger">
-       @foreach($errors->all() as $error)
-          <p>{{ $error }}</p>
-       @endforeach
-       </div>
+        <div class="alert alert-danger">
+        @foreach($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+        </div>
+    @endif
+
+    @if(isset($data['alert']))
+        <div class="alert alert-{{$data['alertType']}}">{{$data['alert']}}</div>
     @endif
 
     <form method="POST" action="{{isset($product->id)? URL::route('admin.product.update', ['id'=>$product->id]) : URL::route('admin.product.store')}}" enctype="multipart/form-data">
@@ -72,13 +76,15 @@
         </div>
 
         @if(isset($product->id))
-        <div class="product-image" style="background-image:url('{{URL::to($product->image)}}')"></div>
+        <div class="product-image product-image-form" style="background-image:url('{{URL::to($product->image)}}')"></div>
         @endif
 
         <div class="button-row">
             <input type="submit" value="Save" class="btn btn-primary pull-left">
             <a href="{{URL::route('admin.home')}}" class="btn btn-default pull-left">Back</a>
+            @if(isset($product->id))
             <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#ModalDelete">Delete</a>
+            @endif
         </div>
     </form>
 
