@@ -71,7 +71,7 @@ class ProductController extends Controller {
         $rules = [
            'name'           => 'required|string|max:100'
            ,'description'   => 'required|string'
-           ,'price'         => 'required|numeric'
+           ,'price'         => 'required|numeric|min:0|max:9999999.99'
            ,'image'         => 'required|image|max:1024'
            ,'stock_number'  => 'required|alpha_num|size:10'
            ,'available'     => 'in:1'
@@ -138,7 +138,7 @@ class ProductController extends Controller {
         $rules = [
            'name'           => 'required|string|max:100'
            ,'description'   => 'required|string'
-           ,'price'         => 'required|numeric'
+           ,'price'         => 'required|numeric|min:0|max:9999999.99'
            ,'image'         => 'image|max:1024'
            ,'stock_number'  => 'required|alpha_num|size:10'
            ,'available'     => 'in:1'
