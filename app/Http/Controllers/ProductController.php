@@ -97,6 +97,10 @@ class ProductController extends Controller {
     {
         $product = Product::find($id);
 
+        if(!isset($product)){
+            return Redirect::route('admin.home');
+        }
+
         return view('product.form',
             [
                 'product' => $product
@@ -125,6 +129,10 @@ class ProductController extends Controller {
         if($validator->passes())
         {
             $product = Product::find($id);
+
+            if(!isset($product)){
+                return Redirect::route('admin.home');
+            }
 
             if(Input::hasFile('image'))
             {
