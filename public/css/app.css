@@ -6,6 +6,7 @@ html {
 }
 body {
   margin: 0;
+  margin-bottom: 60px;
 }
 article,
 aside,
@@ -6241,6 +6242,10 @@ textarea{
     min-height: 110px;
 }
 
+h1 > .btn{
+    vertical-align: top;
+}
+
 .required:after{
     color: #c7254e;
     content: '*';
@@ -6294,7 +6299,7 @@ textarea{
    padding: 0;
 }
 .products-list > li{
-   background-color:#eee;
+   border: 1px solid #eee;
    -moz-box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
    -ms-box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
    -webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -6351,14 +6356,12 @@ textarea{
       margin-bottom: 0;
    }
 }
-
 .products-list > li:not(.empty-placeholder):hover{
    -moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.2);
    -ms-box-shadow: 4px 4px 8px rgba(0,0,0,0.2);
    -webkit-box-shadow: 4px 4px 8px rgba(0,0,0,0.2);
    box-shadow: 4px 4px 8px rgba(0,0,0,0.2);
 }
-
 .products-list h2{
     font-size: 20px;
     height: 50px;
