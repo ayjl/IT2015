@@ -6236,3 +6236,33 @@ label,
     color: #c7254e;
     content: '*';
 }
+
+.product-image{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 300px; height:300px;
+}
+
+.button-row{
+    margin-top: 15px;
+}
+.button-row:before, .button-row:after{
+    display: table;
+    content: " ";
+}
+.button-row:after{
+    clear: both;
+}
+.button-row > .btn-primary{
+    margin-right: 10px;
+}
+
+.no-btn-danger, .no-btn-danger:hover, .no-btn-danger:active{
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+    cursor: default;
+}
