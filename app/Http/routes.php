@@ -18,8 +18,10 @@ Route::get('auth/login', ['uses'=>'Auth\AuthController@getLogin', 'as'=>'auth.lo
 Route::post('auth/login', ['uses'=>'Auth\AuthController@postLogin']);
 Route::get('auth/logout', ['uses'=>'Auth\AuthController@getLogout', 'as'=>'auth.logout']);
 
-Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function(){
-    Route::get('/', function(){
+Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function()
+{
+    Route::get('/', function()
+    {
         return Redirect::route('admin.product.index');
     });
 
