@@ -76,31 +76,32 @@
         @endif
 
         <div class="button-row">
-            <input type="submit" value="Save" class="btn btn-primary">
-            <a href="{{URL::route('admin.home')}}" class="btn btn-default">Back</a>
+            <input type="submit" value="Save" class="btn btn-primary pull-left">
+            <a href="{{URL::route('admin.home')}}" class="btn btn-default pull-left">Back</a>
+            <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#ModalDelete">Delete</a>
         </div>
     </form>
 
     @if(isset($product->id))
-    <div class="button-row">
-        <form>
-            <input type="hidden" name="_token" value="{{csrf_token()}}">
-            <input type="hidden" name="_method" value="DELETE">
-
-            <div class="btn-group">
-                <span class="btn btn-danger no-btn-danger">Delete</span>
-
-                <span class="btn btn-danger dropdown-toggle no-disable" data-toggle="dropdown" aria-expanded="false">
-                    <span class="caret"></span>
-                </span>
-
-                <ul class="dropdown-menu" data-response-id="53">
-                    <li>
-                        <a href="">Delete</a>
-                    </li>
-                </ul>
+    <div id="ModalDelete" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title">Delete Product?</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-controls">
+                    <form method="POST" action="{{URL::route('admin.product.destroy', ['id'=>$product->id])}}">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button class="btn btn-default no-disable" data-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form> 
+                </div>
+                </div>
             </div>
-        </form> 
+        </div>
     </div>
     @endif
 </div>
