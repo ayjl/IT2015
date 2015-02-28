@@ -73,7 +73,7 @@ class ProductController extends Controller {
             $product->name          = Input::get('name');
             $product->description   = Input::get('description');
             $product->price         = Input::get('price');
-            $product->image         = $fileName;
+            $product->image         = 'images/'.$fileName;
             $product->stock_number  = Input::get('stock_number');
             $product->available     = Input::get('available', false);
 
