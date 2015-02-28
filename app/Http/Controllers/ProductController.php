@@ -2,11 +2,11 @@
 
 use App\Product;
 
+use \File;
 use \Input;
 use \Redirect;
 use \Request;
 use \Validator;
-use \File;
 
 class ProductController extends Controller {
 
@@ -27,6 +27,7 @@ class ProductController extends Controller {
     public function index()
     {
         $products = Product::all();
+
         return view('product.list',
             [
                 'products' => $products
@@ -58,6 +59,7 @@ class ProductController extends Controller {
     /**
      * Show a form to create a product.
      *
+     * @param  int  $id
      * @return Response
      */
     public function create()
@@ -69,7 +71,7 @@ class ProductController extends Controller {
     }
 
     /**
-     * Store the product.
+     * Store a new product.
      *
      * @return Response
      */
@@ -110,8 +112,9 @@ class ProductController extends Controller {
     }
 
     /**
-     * Show a form to edit an existing product.
+     * Show a form to edit the specified product.
      *
+     * @param  int  $id
      * @return Response
      */
     public function edit($id)
@@ -130,8 +133,9 @@ class ProductController extends Controller {
     }
 
     /**
-     * Update an existing product.
+     * Update the specified product.
      *
+     * @param  int  $id
      * @return Response
      */
     public function update($id)
@@ -186,8 +190,9 @@ class ProductController extends Controller {
     }
 
     /**
-     * Delete an existing product.
+     * Delete the specified product.
      *
+     * @param  int  $id
      * @return Response
      */
     public function destroy($id)
