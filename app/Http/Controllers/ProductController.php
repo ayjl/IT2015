@@ -76,7 +76,7 @@ class ProductController extends Controller {
             $product->name          = Input::get('name');
             $product->description   = Input::get('description');
             $product->price         = Input::get('price');
-            $product->image         = 'images/'.$fileName;
+            $product->image         = '/images/'.$fileName;
             $product->stock_number  = Input::get('stock_number');
             $product->available     = Input::get('available', false);
 
@@ -141,13 +141,13 @@ class ProductController extends Controller {
                 if(File::exists($file)) {
                     File::delete($file);
                 }
-                
+
                 $image = Input::file('image');
                 $fileLocation = public_path().'/images/';
                 $fileName = uniqid().'.'.$image->getClientOriginalExtension();
                 $image->move($fileLocation, $fileName);
 
-                $product->image = 'images/'.$fileName;
+                $product->image = '/images/'.$fileName;
             }
 
             $product->name          = Input::get('name');
