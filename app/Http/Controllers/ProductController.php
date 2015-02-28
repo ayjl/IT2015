@@ -128,6 +128,12 @@ class ProductController extends Controller {
 
             if(Input::hasFile('image'))
             {
+                $file = public_path().$product->image;
+                
+                if(File::exists($file)) {
+                    File::delete($file);
+                }
+                
                 $image = Input::file('image');
                 $fileLocation = public_path().'/images/';
                 $fileName = uniqid().'.'.$image->getClientOriginalExtension();
