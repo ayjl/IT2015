@@ -16,8 +16,11 @@
        </div>
     @endif
 
-    <form method="POST" action="{{URL::route('admin.product.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($product->id)? URL::route('admin.product.update', ['id'=>$product->id]) : URL::route('admin.product.store')}}" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
+        @if(isset($product->id))
+        <input type="hidden" name="_method" value="PUT">
+        @endif
 
         <div class="row">
             <div class="col-sm-6">
