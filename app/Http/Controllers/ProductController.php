@@ -12,15 +12,6 @@ use \Validator;
 class ProductController extends Controller {
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Show the list of products.
      *
      * @return Response
@@ -37,7 +28,7 @@ class ProductController extends Controller {
     }
 
     /**
-     * Show the list of products.
+     * Show the specified product.
      *
      * @param  int  $id
      * @return Response
@@ -56,7 +47,6 @@ class ProductController extends Controller {
             ]
         );
     }
-
 
     /**
      * Show a form to create a product.
