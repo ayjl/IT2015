@@ -6,6 +6,7 @@ use \Input;
 use \Redirect;
 use \Request;
 use \Validator;
+use \File;
 
 class ProductController extends Controller {
 
@@ -149,4 +150,26 @@ class ProductController extends Controller {
         return Redirect::route('admin.product.edit', [$id])->withInput()->withErrors($validator);
     }
 
+    /**
+     * Delete an existing product.
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        
+        if(isset($product))
+        {
+            $file = public_path().$product->image;
+
+            if(File::exists($file)) {
+                File::delete($file);
+            }
+
+            $product->delete();
+        }
+
+        return Redirect::route('admin.home');
+    }
 }
