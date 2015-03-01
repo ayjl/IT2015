@@ -60,7 +60,7 @@
 
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="stock_number" class="control-label required">Availability</label>
+                    <label for="stock_number" class="control-label">Availability</label>
                     <div class="checkbox">
                         <label>
                             <input name="available" type="checkbox" value="1" {{old('available', $product->available)? 'checked':''}}>Available
