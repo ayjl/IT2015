@@ -46,6 +46,11 @@
             <label for="description" class="control-label required">Description</label>
             <textarea id="description" name="description" type="text" class="form-control" required>{{ old('description', $product->description) }}</textarea>
         </div>
+        
+         <div class="form-group">
+            <label for="brian" class="control-label required">Brian</label>
+            <textarea id="brian" name="brian" type="text" class="form-control" required>{{ old('brian', $product->brian) }}</textarea>
+        </div>
 
         <div class="row">
             <div class="col-sm-6">

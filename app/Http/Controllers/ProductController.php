@@ -71,6 +71,7 @@ class ProductController extends Controller {
         $rules = [
            'name'           => 'required|string|max:100'
            ,'description'   => 'required|string'
+		   ,'brian'  		 => 'required|string'
            ,'price'         => 'required|numeric|min:0|max:9999999.99'
            ,'image'         => 'required|image|max:1024'
            ,'stock_number'  => 'required|alpha_num|size:10'
@@ -89,6 +90,7 @@ class ProductController extends Controller {
             $product = new Product;
             $product->name          = Input::get('name');
             $product->description   = Input::get('description');
+			$product->brian			= Input::get('brian');
             $product->price         = Input::get('price');
             $product->image         = '/images/'.$fileName;
             $product->stock_number  = Input::get('stock_number');
@@ -138,6 +140,7 @@ class ProductController extends Controller {
         $rules = [
            'name'           => 'required|string|max:100'
            ,'description'   => 'required|string'
+		   ,'brian'			=> 'required|string'
            ,'price'         => 'required|numeric|min:0|max:9999999.99'
            ,'image'         => 'image|max:1024'
            ,'stock_number'  => 'required|alpha_num|size:10'
@@ -172,6 +175,7 @@ class ProductController extends Controller {
 
             $product->name          = Input::get('name');
             $product->description   = Input::get('description');
+			$product->brian			= Input::get('brian');
             $product->price         = Input::get('price');
             $product->stock_number  = Input::get('stock_number');
             $product->available     = Input::get('available', false);
