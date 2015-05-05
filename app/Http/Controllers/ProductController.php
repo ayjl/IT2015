@@ -76,6 +76,7 @@ class ProductController extends Controller {
            ,'image'         => 'required|image|max:1024'
            ,'stock_number'  => 'required|alpha_num|size:10'
            ,'available'     => 'in:1'
+		   ,'ming'          => 'string'
         ];
 
         $validator = Validator::make(Input::all(), $rules);
@@ -95,6 +96,7 @@ class ProductController extends Controller {
             $product->image         = '/images/'.$fileName;
             $product->stock_number  = Input::get('stock_number');
             $product->available     = Input::get('available', false);
+			$product->ming          = Input::get('ming');
 
             $product->save();
 
@@ -145,6 +147,7 @@ class ProductController extends Controller {
            ,'image'         => 'image|max:1024'
            ,'stock_number'  => 'required|alpha_num|size:10'
            ,'available'     => 'in:1'
+		   ,'ming'          => 'string'
         ];
 
         $validator = Validator::make(Input::all(), $rules);
@@ -179,6 +182,7 @@ class ProductController extends Controller {
             $product->price         = Input::get('price');
             $product->stock_number  = Input::get('stock_number');
             $product->available     = Input::get('available', false);
+			$product->ming          = Input::get('ming');
 
             $product->save();
 

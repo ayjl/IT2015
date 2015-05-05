@@ -73,6 +73,15 @@
                     </div>
                 </div>
             </div>
+            
+        </div>
+		<div class="row">
+			<div class="col-sm-6">
+                <div class="form-group">
+                    <label for="ming" class="control-label">Ming</label>
+                    <input id="ming" name="ming" type="text" class="form-control" value="{{ old('ming', $product->ming) }}">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
