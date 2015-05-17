@@ -14,6 +14,7 @@
 Route::get('/', ['uses'=>'ProductController@index', 'as'=>'home']);
 Route::resource('product', 'ProductController', ['only'=>'show']);
 
+
 Route::get('auth/login', ['uses'=>'Auth\AuthController@getLogin', 'as'=>'auth.login']);
 Route::post('auth/login', ['uses'=>'Auth\AuthController@postLogin']);
 Route::get('auth/logout', ['uses'=>'Auth\AuthController@getLogout', 'as'=>'auth.logout']);
@@ -26,4 +27,17 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function()
     }]);
 
     Route::resource('product', 'ProductController', ['except'=>'show']);
+});
+
+Route::group(['prefix'=>'fbgraphapi'], function()
+{
+	Route::get('fb_events', ['as' => 'fb_events', 'uses' => 'FBController@eventslist']);
+	Route::get('fb_events_retrieve', ['as' => 'fb_events_retrieve', 'uses' => 'FBController@eventsretrieve']);
+	Route::get('fb_rsvp', ['as' => 'fb_rsvp', 'uses' => 'FBController@rsvplist']);
+	Route::get('fb_rsvp_retrieve', ['as' => 'fb_rsvp_retrieve', 'uses' => 'FBController@rsvpretrieve']);
+	
+	
+	Route::resource('fb_user_retrieve', 'FBController@userretrieve' , ['as' => 'fb_user_retrieve']);
+	
+	Route::resource('profile', 'FBController', ['only'=>'show']);
 });
