@@ -33,11 +33,8 @@ Route::group(['prefix'=>'fbgraphapi'], function()
 {
 	Route::get('fb_events', ['as' => 'fb_events', 'uses' => 'FBController@eventslist']);
 	Route::get('fb_events_retrieve', ['as' => 'fb_events_retrieve', 'uses' => 'FBController@eventsretrieve']);
-	Route::get('fb_rsvp', ['as' => 'fb_rsvp', 'uses' => 'FBController@rsvplist']);
-	Route::get('fb_rsvp_retrieve', ['as' => 'fb_rsvp_retrieve', 'uses' => 'FBController@rsvpretrieve']);
-	
-	
-	Route::resource('fb_user_retrieve', 'FBController@userretrieve' , ['as' => 'fb_user_retrieve']);
-	
-	Route::resource('profile', 'FBController', ['only'=>'show']);
+	Route::get('fb_rsvp/{id}', ['as' => 'fb_rsvp', 'uses' => 'FBController@rsvplist']);
+	Route::get('fb_rsvp_retrieve/{id}', ['as' => 'fb_rsvp_retrieve', 'uses' => 'FBController@rsvpretrieve']);
+	Route::get('fb_user_retrieve/{id}', ['as' => 'fb_user_retrieve', 'uses' => 'FBController@userretrieve']);
+	Route::get('profile/{id}', ['as' => 'profile', 'uses' => 'FBController@profile']);
 });
