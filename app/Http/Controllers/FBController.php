@@ -68,7 +68,8 @@ class FBController extends Controller {
      //$rsvp = fb_rsvp::all();
      $exist = fb_events::where(array('fb_eventid' => $id))->get();
      $rsvp = fb_rsvp::where(array('fb_eventid' => $id))->orderBy('fb_name', 'ASC')->get();
-     
+     $events = fb_events::where(array('fb_eventid' => $id))->first();  
+	 
      if ($exist->isEmpty() or !isset($id)) {
        return Redirect::route('fb_events');
      } else {
@@ -78,7 +79,8 @@ class FBController extends Controller {
          return view('fbgraphapi.rsvplist',
             [
               'rsvp'     => $rsvp,
-              'event_id' => $id
+              'event_id' => $id,
+              'events'   => $events
             ]
          );
        }
@@ -108,27 +110,43 @@ class FBController extends Controller {
 
      $access_token = "CAAUjFORvNWoBAEZCE1lTZCjnbQIjCkm5GZBlrGfZCb3ZBdoxHmi9q17GWXfrMYCtAo7Cf2Bpdi8aDkD9rQBZAZAiCwemUfJPavImfQMZAkg8cHarjxVHETk6ISR7bhB7roLWTsRPDU46jP4hdkgWY55yS2YBHOqxsX43P6TETVMSZACtZCM7W4T1uQcpPmnrqZAQdYVZAOQGpAm6ZBwZDZD";
      $graph_url = "https://graph.facebook.com/$id?&access_token=" . $access_token;
-     $requests = file_get_contents($graph_url);
-     $fb_response = json_decode($requests,true);
      
-     if (isset($fb_response['middle_name'])) {
-       $middle_name = $fb_response['middle_name'];
-     } else {
-       $middle_name = "";  
-     }
-     
-     $user->first_name = $fb_response['first_name'] . " " . $middle_name;
-     $user->last_name  = $fb_response['last_name'];
-     $user->fb_userid  = $fb_response['id'];
-     
-     $user->save();   
-     
+	 
+      $connected = @fsockopen("www.google.com", 80); //check internet connection
+      if ($connected){
+        $requests = file_get_contents($graph_url);
+		$fb_response = json_decode($requests,true);
+		
+		if (isset($fb_response['middle_name'])) {
+		  $middle_name = $fb_response['middle_name'];
+		} else {
+		  $middle_name = "";  
+		}
+		
+		$user->first_name = $fb_response['first_name'] . " " . $middle_name;
+		$user->last_name  = $fb_response['last_name'];
+		$user->fb_userid  = $fb_response['id'];
+		
+		$user->save();
+		
+        fclose($connected);
+      }
+     //return Redirect::route('profile',$id);
+     return Redirect::route('profile',$id);
+    }
+   
+   
+   public function profile($id) {     
+
      $profile_rsvp = fb_rsvp::where('fb_userid', '=', "$id")->get();
      $profile_dtls = fb_user::where('fb_userid', '=', "$id")->first();
      $events = fb_events::orderBy('starttime', 'DESC')->get();
-     
-     //return Redirect::route('profile',$id);
-     return view('fbgraphapi.userprofile',
+     /*if (!isset($profile)) {
+       return Redirect::route('fb_events'); 
+     }*/
+
+     //if ($profile_dtls->isEmpty()) {
+	   return view('fbgraphapi.userprofile',
        [
          'profile_rsvp' => $profile_rsvp,
          'profile_dtls' => $profile_dtls,
@@ -136,17 +154,6 @@ class FBController extends Controller {
          'fb_userid'    => $id
        ]
      );
-    }
-   
-   
-   public function profile($id) {     
-
-     /*if (!isset($profile)) {
-       return Redirect::route('fb_events'); 
-     }*/
-
-     //if ($profile_dtls->isEmpty()) {
-       return Redirect::route('fb_user_retrieve',$id);
      //} else {
        
      //}

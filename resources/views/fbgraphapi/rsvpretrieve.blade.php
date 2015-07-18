@@ -184,6 +184,9 @@ $po->text = "Updating database...";
 $po->DisplayMeter(); 
 $po->Calculate($total);
 ob_end_flush();
+
+date_default_timezone_set('Australia/Sydney');
+$starttime = date('Y-m-d H:i:s', time());
 foreach ($selected_fields_array as $status) {
 ?>
    @foreach(${str_replace(".limit(500)", "", $status)} as $user)
@@ -203,7 +206,7 @@ foreach ($selected_fields_array as $status) {
       $row->fb_userid   = $user['id'];
       $row->rsvp_status = $user['rsvp_status'];
       $row->fb_name     = $user['name'];
-      $row->updated_at  = NULL; //to ensure updated_at field gets updated even if no change
+      $row->updated_at  = date('Y-m-d H:i:s', time()); //to ensure updated_at field gets updated even if no change
       
       $row->save();
      
@@ -215,7 +218,7 @@ foreach ($selected_fields_array as $status) {
       }
       $row->fb_userid = $user['id'];
       $row->save();   
-           
+        
       
       echo str_repeat(' ', 2480);
       $po->Animate();
@@ -225,13 +228,33 @@ foreach ($selected_fields_array as $status) {
       echo "$i, ";
       
       if ($i >= $total) {
-		 echo "<p>All Completed :)<br /><a href=\"" . URL::route('fb_events') . "\">Return</a>";
-		 exit;
+		 //
       }
       ?>
    @endforeach
    
+   
+   
    <?php 
+   if ($i >= $total) {
+	  $notupdated = fb_rsvp::where('updated_at', '<', $starttime)->where('fb_eventid', '=', $event_id)->get();
+	  //var_dump ($notupdated);
+	  foreach($notupdated as $user) {
+		 if (strpos($user->rsvp_status,'<font color=red>') === false) {
+			$previous_status = $user->rsvp_status;
+			
+			$previous_status = str_replace('</s><color=red>might be removed from guest list</color=red>','', $previous_status);
+			$previous_status = str_replace('<s>','', $previous_status);
+			
+			
+			$user->rsvp_status = "<s>" . $previous_status . "</s> <font color=red>might be removed from guest list</font>";
+			$row->updated_at = $row->updated_at;
+			$user->save();
+		 }
+	  }
+	  echo "<p>All Completed :)<br /><a href=\"" . URL::route('fb_events') . "\">Return</a>";
+      exit;
+   }
 }
 ?>
 
